@@ -1,8 +1,8 @@
 #include <Adafruit_NeoPixel.h>
 // Which pin on the Arduino is connected to the NeoPixels?
 // On a Trinket or Gemma we suggest changing this to 1:
-#define LED_RING_PIN    6
-#define LED_STRIP_PIN    5
+#define LED_RING_PIN  22  //  6
+#define LED_STRIP_PIN 23  //   5
 
 // How many NeoPixels are attached to the Arduino?
 #define LED_RING_COUNT 42
@@ -24,8 +24,8 @@ uint32_t colorGreen =   ledStrip.Color(0, 10, 0);
 uint32_t colorRed =     ledStrip.Color(10, 0, 0);
 uint32_t colorMagenta = ledStrip.Color(10, 0, 10);
 uint32_t colorWhite =   ledStrip.Color(10, 10, 10);
-uint32_t colorOk =      ledStrip.Color(0, 25, 0);
-uint32_t colorFail =    ledStrip.Color(25, 0, 0);
+uint32_t colorOk =      ledStrip.Color(0, 255, 0);
+uint32_t colorFail =    ledStrip.Color(255, 0, 0);
 
 int firstLed;
 
@@ -63,7 +63,13 @@ void loop()
   }
   if(mode == 0)
   {
-    if((timeMs % 80) == 0)
+    if(timeMs == 0)
+    {
+      ledRing.clear();
+      ledStrip.fill(colorWhite);
+      ledRing.show();
+      ledStrip.show();
+    } else if((timeMs % 80) == 0)
     {
       ledRing.setPixelColor((firstLed+0)%LED_RING_COUNT,   0,  0,   0);
       ledRing.setPixelColor((firstLed+1)%LED_RING_COUNT,  10, 0, 10);
@@ -125,10 +131,13 @@ void loop()
     }
   } else if(mode == 3)
   {
-    for(int i=0; i<LED_RING_COUNT; i++)
-      ledRing.setPixelColor(i,    0,  0,   0);
-    ledRing.show();
-    ledStrip.show();
+    if(timeMs == 0)
+    {
+      ledRing.clear();
+      ledStrip.clear();
+      ledRing.show();
+      ledStrip.show();
+    }
   }
   
   delay(1);
