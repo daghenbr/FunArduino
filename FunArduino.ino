@@ -6,7 +6,7 @@
 
 // How many NeoPixels are attached to the Arduino?
 #define LED_RING_COUNT 42
-#define LED_STRIP_COUNT 42
+#define LED_STRIP_COUNT 60
 
 // Declare our NeoPixel strip object:
 Adafruit_NeoPixel ledRing(LED_RING_COUNT, LED_RING_PIN, NEO_GRB + NEO_KHZ800);
