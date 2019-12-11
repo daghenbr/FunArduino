@@ -1,8 +1,8 @@
 #include <Adafruit_NeoPixel.h>
 // Which pin on the Arduino is connected to the NeoPixels?
 // On a Trinket or Gemma we suggest changing this to 1:
-#define LED_RING_PIN  22  //  6
-#define LED_STRIP_PIN 23  //   5
+#define LED_RING_PIN  22
+#define LED_STRIP_PIN 23
 
 // How many NeoPixels are attached to the Arduino?
 #define LED_RING_COUNT 42
@@ -52,9 +52,13 @@ int mode;
 long timeMs;
 
 
+/*****************************************************************
+ * Method: loop
+ * Description: This method is called continously by Arduino.
+ *****************************************************************/
 void loop()
 {
-  // put your main code here, to run repeatedly:
+  /****** Read commands from controller through serial port: ******/
   while(Serial.available() > 0)
   {
     byte a = Serial.read();
@@ -63,6 +67,7 @@ void loop()
   }
   if(mode == 0)
   {
+    /****** Controller sets mode 0 when waiting for a detection: ******/
     if(timeMs == 0)
     {
       ledRing.clear();
@@ -89,6 +94,7 @@ void loop()
     }
   } else if(mode == 1)
   {
+    /****** Controller sets mode 1 when access is granted: ******/
     if(timeMs == 0 || timeMs == 400 || timeMs == 800 || timeMs == 1200 || timeMs == 1600)
     {
       ledRing.fill(colorOk);
@@ -110,6 +116,7 @@ void loop()
     }
   } else if(mode == 2)
   {
+    /****** Controller sets mode 2 when access is denied: ******/
     if(timeMs == 0 || timeMs == 400 || timeMs == 800 || timeMs == 1200 || timeMs == 1600)
     {
       ledRing.fill(colorFail);
@@ -131,10 +138,11 @@ void loop()
     }
   } else if(mode == 3)
   {
+    /****** Controller sets mode 3 while it measures distance: ******/
     if(timeMs == 0)
     {
       ledRing.clear();
-      ledStrip.clear();
+      ledStrip.fill(colorWhite);
       ledRing.show();
       ledStrip.show();
     }
