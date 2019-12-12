@@ -77,10 +77,10 @@ void loop()
     } else if((timeMs % 80) == 0)
     {
       ledRing.setPixelColor((firstLed+0)%LED_RING_COUNT,   0,  0,   0);
-      ledRing.setPixelColor((firstLed+1)%LED_RING_COUNT,  10, 0, 10);
-      ledRing.setPixelColor((firstLed+2)%LED_RING_COUNT,   0,  0,  10);
-      ledRing.setPixelColor((firstLed+3)%LED_RING_COUNT,  10,  0,   0);
-      ledRing.setPixelColor((firstLed+4)%LED_RING_COUNT,   0, 10,   0);
+      ledRing.setPixelColor((firstLed+1)%LED_RING_COUNT,  100, 0, 100);
+      ledRing.setPixelColor((firstLed+2)%LED_RING_COUNT,   0,  0,  100);
+      ledRing.setPixelColor((firstLed+3)%LED_RING_COUNT,  100,  0,   0);
+      ledRing.setPixelColor((firstLed+4)%LED_RING_COUNT,   0, 100,   0);
       ledRing.show();
       firstLed++;
       if(firstLed >= LED_RING_COUNT)
